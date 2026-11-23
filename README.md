@@ -16,6 +16,8 @@
 
 `GET /api/observe/<view>` 支持 `intake`、`registry`、`custody`、`exposure`、`capacity`，参数 `sample` 选择样例，`receipt` 查询归档。`GET /api/receipts/<id>` 查看归档，`POST /api/receipts/<id>/refresh` 复算，`GET /api/certificate/<id>/export` 下载证据。
 
+槽位挂错门时在批次留档页提交 `POST /api/receipts/corrections`，载荷 `{"slot","revision","door"}`。系统只对含该槽位版本的现行归档生效，所有关联班次在同一事务内重算并发布新版本，无关班次不动；任一班次重算失败则整批回滚，旧版全部留档可查。同一更正按内容寻址，重复执行不新增版本。`GET /api/receipts/corrections` 查看更正批次，归档详情的 `versions` 给出旧到新的版本链路。
+
 [数据定义](docs/DATA-DICTIONARY.md) · [深度登记](docs/DEPTH.md) · [序列复算](docs/SHIFT-EXAMPLE.md)
 
 也可以向前五个业务入口发送 `POST /api/observe/<view>`，直接试算自有原件，不写入档案。

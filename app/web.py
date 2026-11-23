@@ -45,6 +45,13 @@ def page(view):
     if view == 'certificate' and stamp:
         issue(receipts().read(stamp['id']))
     tracks, ticks = lanes(stages)
+    store = receipts()
+    history_ctx = {}
+    if view == 'history':
+        heads, superseded = store.lineage_heads()
+        history_ctx = dict(heads=set(heads), superseded=set(superseded),
+                           corrections=store.list_corrections(),
+                           chain=store.chain(stamp['id']) if stamp else [])
     return render_template('station.html', stages=stages, view=view, stamp=stamp, sample=example, tabs=TABS,
                            codes=CODES, kinds=KINDS, tracks=tracks, ticks=ticks, utc=iso, minutes=minutes,
-                           entries=receipts().list() if view == 'history' else [])
+                           entries=store.list() if view == 'history' else [], **history_ctx)

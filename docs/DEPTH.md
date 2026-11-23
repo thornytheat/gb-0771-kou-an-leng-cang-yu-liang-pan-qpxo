@@ -10,6 +10,7 @@
 | M4 暴露分钟归属 | 按货批核查开门温度及缺证 | `/` `/api/observe/exposure` | `app/modules/exposure/service.py` `app/modules/exposure/doors.py` | `tests/test_exposure.py` |
 | M5 件数和占位对账 | 核对时间与收盘库存守恒 | `/view/capacity` `/api/observe/capacity` | `app/modules/capacity/service.py` | `tests/test_capacity.py` |
 | M6 批次留档复跑 | 归档原件并复算 | `/view/history` `POST /api/receipts` | `app/modules/history/service.py` `app/modules/history/storage.py` | `tests/test_history.py` |
+| M6b 门区跨班更正 | 挂错门后关联班次整体重算 | `/view/history` `POST /api/receipts/corrections` | `app/modules/history/corrections.py` `app/modules/history/service.py` | `tests/test_corrections.py` |
 | M7 冷库证据签发 | 校验摘要并下载原件及依据 | `/view/certificate` `/api/certificate/<key>/export` | `app/modules/certificate/service.py` | `tests/test_certificate.py` |
 
 ## 陷阱登记
